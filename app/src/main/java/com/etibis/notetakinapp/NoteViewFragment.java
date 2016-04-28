@@ -1,0 +1,41 @@
+package com.etibis.notetakinapp;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+
+public class NoteViewFragment extends Fragment {
+
+
+    public NoteViewFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View fragmentLayout = inflater.inflate(R.layout.fragment_note_view, container, false);
+        TextView title = (TextView) fragmentLayout.findViewById(R.id.viewNoteTitle);
+        TextView message = (TextView) fragmentLayout.findViewById(R.id.viewNoteMessage);
+
+        Intent intent = getActivity().getIntent();
+
+        title.setText(intent.getStringExtra(MainActivity.NOTE_TITLE_EXTRA));
+        message.setText(intent.getStringExtra(MainActivity.NOTE_MESSAGE_EXTRA));
+
+        // Return the layout for this fragment
+        return fragmentLayout;
+    }
+
+}

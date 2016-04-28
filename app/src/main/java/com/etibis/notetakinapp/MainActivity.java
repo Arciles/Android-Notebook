@@ -11,6 +11,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Constants for putExtra method key
+    public static String NOTE_ID_EXTRA = "com.esatibis.notetakingapp.NOTE_ID";
+    public static String NOTE_TITLE_EXTRA = "com.esatibis.notetakingapp.NOTE_TITLE";
+    public static String NOTE_MESSAGE_EXTRA = "com.esatibis.notetakingapp.NOTE_MESSAGE";
+    public static String NOTE_CATEGORY_EXTRA = "com.esatibis.notetakingapp.NOTE_CATEGORY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
