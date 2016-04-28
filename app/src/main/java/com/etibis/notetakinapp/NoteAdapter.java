@@ -25,16 +25,29 @@ public class NoteAdapter extends ArrayAdapter<Note> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Note note = getItem(position);
+        ViewHolder viewHolder;
         if (convertView == null){
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
-        }
-        TextView title = (TextView) convertView.findViewById(R.id.listItemNoteTitle);
-        TextView messege = (TextView) convertView.findViewById(R.id.listItemNoteText);
 
-        title.setText(note.getTitle());
-        messege.setText(note.getMessage());
+            viewHolder.title = (TextView) convertView.findViewById(R.id.listItemNoteTitle);
+            viewHolder.message = (TextView) convertView.findViewById(R.id.listItemNoteText);
+
+            convertView.setTag(viewHolder);
+        }
+        else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        viewHolder.title.setText(note.getTitle());
+        viewHolder.message.setText(note.getMessage());
 
         return convertView;
+
+    }
+
+    public static class ViewHolder {
+        TextView title,message;
 
     }
 }
