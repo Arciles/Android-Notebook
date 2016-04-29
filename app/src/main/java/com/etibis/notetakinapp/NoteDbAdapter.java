@@ -79,6 +79,10 @@ public class NoteDbAdapter {
         return sqLiteDatabase.update(NOTE_TABLE, values, COLUMN_ID + " = " + idToUpdate, null);
     }
 
+    public long deleteNote(long idToDelete){
+        return sqLiteDatabase.delete(NOTE_TABLE, COLUMN_ID + " = " + idToDelete, null);
+    }
+
     public ArrayList<Note> getAllNotes() {
         ArrayList<Note> notes = new ArrayList<Note>();
 

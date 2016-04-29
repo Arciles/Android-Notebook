@@ -11,6 +11,7 @@
 
     <!-- Main List Long Touch Context Menu-->
     <string name="edit_menu">Edit</string>
+    <string name="delete_menu">Delete</string>
 
     <!-- Fragment Widget Strings-->
     <string name="save_button">Save Note</string>

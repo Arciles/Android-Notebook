@@ -68,6 +68,7 @@ public class MainActivityListFragment extends ListFragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int rowPosition = info.position;
+        Note note = (Note) getListAdapter().getItem(rowPosition);
         // Returns selected items ID
         switch (item.getItemId()) {
 
@@ -75,6 +76,13 @@ public class MainActivityListFragment extends ListFragment {
                 // TODO: lunch edit fragment with selected row
                 lunchNoteDetailActivity(rowPosition, MainActivity.FragmentToLunch.EDIT);
                 return true;
+            case R.id.delete:
+                NoteDbAdapter dbAdapter = new NoteDbAdapter(getActivity().getBaseContext());
+                dbAdapter.open();
+                dbAdapter.deleteNote(note.getNoteId());
+                notes.remove(rowPosition);
+                adapter.notifyDataSetChanged();
+                dbAdapter.close();
         }
 
         return super.onContextItemSelected(item);
