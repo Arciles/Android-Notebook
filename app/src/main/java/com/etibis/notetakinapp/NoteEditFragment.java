@@ -38,9 +38,12 @@ public class NoteEditFragment extends Fragment {
 
         // Populate Widgets with note data
         Intent intent = getActivity().getIntent();
+        Boolean newFlag = this.getArguments().getBoolean(NoteDetailActivity.NEW_NOTE_EXTRA);
+        if (!newFlag) {
+            title.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA));
+            message.setText(intent.getExtras().getString(MainActivity.NOTE_MESSAGE_EXTRA));
+        }
 
-        title.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA, ""));
-        message.setText(intent.getExtras().getString(MainActivity.NOTE_MESSAGE_EXTRA, ""));
 
         buildConfirmDialog();
 

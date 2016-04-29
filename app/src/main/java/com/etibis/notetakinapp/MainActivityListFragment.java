@@ -30,10 +30,17 @@ public class MainActivityListFragment extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         notes = new ArrayList<Note>();
-
+        /*
         notes.add(new Note("First Note", "", Note.Category.PERSONAL));
         notes.add(new Note("Second Note", "Random Message 2", Note.Category.TECHNICAL));
         notes.add(new Note("Third Note", "Random Message 3", Note.Category.FINANCE));
+        */
+
+        NoteDbAdapter noteDbAdapter = new NoteDbAdapter(getContext());
+
+        noteDbAdapter.open();
+        notes = noteDbAdapter.getAllNotes();
+        noteDbAdapter.close();
 
         adapter = new NoteAdapter(getContext(),notes);
 
