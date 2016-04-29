@@ -39,8 +39,8 @@ public class NoteEditFragment extends Fragment {
         // Populate Widgets with note data
         Intent intent = getActivity().getIntent();
 
-        title.setText(intent.getStringExtra(MainActivity.NOTE_TITLE_EXTRA));
-        message.setText(intent.getStringExtra(MainActivity.NOTE_MESSAGE_EXTRA));
+        title.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA, ""));
+        message.setText(intent.getExtras().getString(MainActivity.NOTE_MESSAGE_EXTRA, ""));
 
         buildConfirmDialog();
 
@@ -52,6 +52,12 @@ public class NoteEditFragment extends Fragment {
         });
         // Inflate the layout for this fragment
         return fragmentLayout;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+       // TODO: add values to save
     }
 
     private void buildConfirmDialog() {

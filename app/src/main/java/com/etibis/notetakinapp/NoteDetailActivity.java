@@ -34,6 +34,11 @@ public class NoteDetailActivity extends AppCompatActivity {
                 setTitle(R.string.edit_fragment_title);
                 fragmentTransaction.add(R.id.noteContainer, noteEditFragment, "NOTE_EDIT_FRAGMENT");
                 break;
+            case CREATE:
+                NoteEditFragment noteCreateFragment = new NoteEditFragment();
+                setTitle(R.string.create_fragment_title);
+                fragmentTransaction.add(R.id.noteContainer, noteCreateFragment, "NOTE_CREATE_FRAGMENT");
+                break;
         }
 
         fragmentTransaction.commit();
