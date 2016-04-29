@@ -1,5 +1,6 @@
 package com.etibis.notetakinapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by esattahaibis on 2016-04-29.
@@ -26,11 +28,11 @@ public class NoteDbAdapter {
     private String[] allColumns = {COLUMN_ID, COLUMN_TITLE, COLUMN_MESSAGE, COLUMN_CATEGORY, COLUMN_DATE};
 
     public static final String CREATE_TABLE_NOTE = "CREATE TABLE " + NOTE_TABLE + " ( " +
-            COLUMN_ID + " INT PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_TITLE + " TEXT NOT NULL, " +
             COLUMN_MESSAGE + " TEXT NOT NULL, " +
-            COLUMN_CATEGORY + " INT NOT NULL, " +
-            COLUMN_DATE + " INT );";
+            COLUMN_CATEGORY + " TEXT NOT NULL, " +
+            COLUMN_DATE + " TEXT );";
 
     private SQLiteDatabase sqLiteDatabase;
     private Context context;
@@ -49,6 +51,34 @@ public class NoteDbAdapter {
     public void close() {
         noteDBHelper.close();
     }
+
+    public Note createNote(String title, String message, Note.Category category) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, title);
+        values.put(COLUMN_MESSAGE, message);
+        values.put(COLUMN_CATEGORY, category.name());
+        values.put(COLUMN_DATE, Calendar.getInstance().getTimeInMillis() + "");
+        long insertId = sqLiteDatabase.insert(NOTE_TABLE, null, values);
+
+        Cursor cursor = sqLiteDatabase.query(NOTE_TABLE, allColumns,COLUMN_ID + " = " + insertId, null, null, null, null);
+
+        cursor.moveToFirst();
+        Note newNote = cursorToNote(cursor);
+        cursor.close();
+        return newNote;
+
+    }
+
+    public long updateNote(long idToUpdate, String newTitle, String newMessage, Note.Category newCategory) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, newTitle);
+        values.put(COLUMN_MESSAGE, newMessage);
+        values.put(COLUMN_CATEGORY, newCategory.name());
+        values.put(COLUMN_DATE, Calendar.getInstance().getTimeInMillis() + "");
+
+        return sqLiteDatabase.update(NOTE_TABLE, values, COLUMN_ID + " = " + idToUpdate, null);
+    }
+
     public ArrayList<Note> getAllNotes() {
         ArrayList<Note> notes = new ArrayList<Note>();
 

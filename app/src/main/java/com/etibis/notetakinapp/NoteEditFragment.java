@@ -21,6 +21,8 @@ public class NoteEditFragment extends Fragment {
 
     private EditText title, message;
     private AlertDialog confirmDialogObject;
+    private Bundle bundle;
+    private long noteID;
 
     public NoteEditFragment() {
         // Required empty public constructor
@@ -38,7 +40,11 @@ public class NoteEditFragment extends Fragment {
 
         // Populate Widgets with note data
         Intent intent = getActivity().getIntent();
-        Boolean newFlag = this.getArguments().getBoolean(NoteDetailActivity.NEW_NOTE_EXTRA);
+        noteID = intent.getExtras().getLong(MainActivity.NOTE_ID_EXTRA, 0);
+        bundle = this.getArguments();
+
+        Boolean newFlag = bundle.getBoolean(NoteDetailActivity.NEW_NOTE_EXTRA);
+
         if (!newFlag) {
             title.setText(intent.getExtras().getString(MainActivity.NOTE_TITLE_EXTRA));
             message.setText(intent.getExtras().getString(MainActivity.NOTE_MESSAGE_EXTRA));
@@ -72,10 +78,15 @@ public class NoteEditFragment extends Fragment {
         confirmBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO: Save the note
-                Log.d("Save Note", title.getText() + " " + message.getText());
-
+                NoteDbAdapter dbAdapter = new NoteDbAdapter(getActivity().getBaseContext());
+                dbAdapter.open();
+                if (bundle.getBoolean(NoteDetailActivity.NEW_NOTE_EXTRA)){
+                    dbAdapter.createNote(title.getText() + "", message.getText()+ "", Note.Category.PERSONAL);
+                } else {
+                    dbAdapter.updateNote(noteID, title.getText() + "", message.getText() + "", Note.Category.PERSONAL);
+                }
                 // Go back to Main Activity
+                dbAdapter.close();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
