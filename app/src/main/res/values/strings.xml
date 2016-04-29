@@ -2,8 +2,16 @@
     <string name="app_name">Note Taking App</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Fragment Title Strings -->
+    <string name="view_fragment_title">View Note</string>
+    <string name="edit_fragment_title">Edit Note</string>
+
+    <!-- Main List Long Touch Context Menu-->
+    <string name="edit_menu">Edit</string>
+
+    <!-- Fragment Widget Strings-->
+    <string name="save_button">Save Note</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="viewFragmentTitle">View Note</string>
-    <string name="editFragmentTitle">Edit Note</string>
 </resources>

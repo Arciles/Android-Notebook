@@ -12,10 +12,12 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     // Constants for putExtra method key
-    public static String NOTE_ID_EXTRA = "com.esatibis.notetakingapp.NOTE_ID";
+    public static final String NOTE_ID_EXTRA = "com.esatibis.notetakingapp.NOTE_ID";
     public static String NOTE_TITLE_EXTRA = "com.esatibis.notetakingapp.NOTE_TITLE";
     public static String NOTE_MESSAGE_EXTRA = "com.esatibis.notetakingapp.NOTE_MESSAGE";
     public static String NOTE_CATEGORY_EXTRA = "com.esatibis.notetakingapp.NOTE_CATEGORY";
+    public static final String NOTE_FRAGMENT_TO_LOAD_EXTRA =  "com.esatibis.notetakingapp.NOTE_FRAGMENT_TO_LOAD";
+    public enum FragmentToLunch {VIEW, EDIT}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Sn ackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });*/
